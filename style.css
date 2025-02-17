@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('assets/img/libreria1.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    animation: scrollBackground 30s linear infinite;
+    filter: blur(5px);
+    z-index: -1;
+}
+
+@keyframes scrollBackground {
+    0% { background-position: center top; }
+    100% { background-position: center bottom; }
+}
+
+.card {
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 15px;
+    max-width: 300px;
+    margin: auto;
+}
+
+.card.border-success {
+    border: 2px solid green;
+}
+
+#cart-modal {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 15px;
+}
