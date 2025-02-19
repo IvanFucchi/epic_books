@@ -1,5 +1,5 @@
 async function fetchBooks() {
-    const url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=YOUR_API_KEY";
+    const url = "https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=BppeQ9oOIpw0YMd4EldNfJ7HjZpF09QE";
     
     try {
         const response = await fetch(url);
