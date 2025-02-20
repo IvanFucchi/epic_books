@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartModal = document.getElementById("cart-modal");
     const cartButton = document.getElementById("cart-button");
     const cartItemsContainer = document.getElementById("cart-items");
-    
+
     let books = [];
     let cart = [];
     let page = 1;
@@ -16,13 +16,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loading) return;
         loading = true;
         try {
-            const response = await fetch("https://striveschool-api.herokuapp.com/books");
+            const response = await fetch("https://striveschool-api.herokuapp.com/books")
+                .then(res => {
+                    console.log(res)
+                    loading = false
+                    return res
+                });
             books = await response.json();
             renderBooks(books);
         } catch (error) {
             console.error("Errore nel caricamento dei libri", error);
-        } finally {
-            loading = false;
+
         }
     }
 
@@ -39,15 +43,36 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p class="card-text">${book.price}€</p>
                     <button class="btn btn-primary add-to-cart">Aggiungi al carrello</button>
                     <button class="btn btn-secondary skip">Salta</button>
+                    <button class="btn btn-secondary details" id="${book.asin}">dettagli</button>
+                    
                 </div>
             `;
-            
+
             const addToCartBtn = bookCard.querySelector(".add-to-cart");
             addToCartBtn.addEventListener("click", () => addToCart(book, bookCard));
+
+            // event listner per il bottone salta card
             
+            const removeCardBtn = bookCard.querySelector(".skip");
+            removeCardBtn.addEventListener("click", () => saltoInLungo(book));
+            
+            // event listner per pagina dettagli
+
+            const detailPageBtn = bookCard.querySelector(".details");
+            detailPageBtn.addEventListener("click", () => {
+                const id = detailPageBtn.getAttribute("id")
+                window.location.href = `/details.html?id_book=${id}`
+
+            });  
+            
+
+
+
             bookContainer.appendChild(bookCard);
         });
     }
+
+
 
     // Aggiunge un libro al carrello e cambia il bordo della card
     function addToCart(book, card) {
@@ -102,4 +127,17 @@ document.addEventListener("DOMContentLoaded", () => {
             fetchBooks();
         }
     });
+
+    //funzione per pagina dettagli
+    // function detailsPage()
+
+    //funzione per saltare card
+
+    function saltoInLungo(book) {
+        books = books.filter(item => item.asin !== book.asin);
+        renderBooks(books)
+    }
+
+    
+    
 });
