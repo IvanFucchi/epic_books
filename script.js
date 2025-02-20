@@ -16,13 +16,16 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loading) return;
         loading = true;
         try {
-            const response = await fetch("https://striveschool-api.herokuapp.com/books")
+             const response = await fetch("https://striveschool-api.herokuapp.com/books")
+            // const response = await fetch("https://api.nytimes.com/svc/books/v3/lists/names.json?api-key=BppeQ9oOIpw0YMd4EldNfJ7HjZpF09QE")
                 .then(res => {
                     console.log(res)
                     loading = false
                     return res
                 });
             books = await response.json();
+            
+
             renderBooks(books);
         } catch (error) {
             console.error("Errore nel caricamento dei libri", error);
